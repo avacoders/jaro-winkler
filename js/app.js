@@ -86,7 +86,7 @@ function getDJ(word1, word2) {
 function getL(word1, word2) {
     var l = 0
     for (let i = 0; i < word1.length; i++) {
-        if (word1[i] === word2[i])
+        if (word1[i] === word2[i] && i < 4)
             l++
         else break
     }
