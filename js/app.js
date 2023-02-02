@@ -2,7 +2,7 @@ $("#submit").click(function () {
     var word1 = $("#word1").val()
     var word2 = $("#word2").val()
     $("#result").text(getPercent(word1, word2))
-    $("#m").text(findM(makeArr(word1,word2)))
+    $("#m").text(findM(makeArr(word1, word2)))
     $("#t").text(getT(makeArr(word1, word2)))
     $("#x").text(getX(word1, word2))
     $("#l").text(getL(word1, word2))
@@ -93,16 +93,33 @@ function getL(word1, word2) {
     return l
 }
 
+function includesCount(elem, array) {
+    var count = 0
+    for (let i = 0; i < array.length; i++)
+        if (elem === array[i])
+            count++
+    return count
+}
+
 function makeArr(word1, word2) {
     var val = []
     var x = getX(word1, word2)
+    var chars2 = []
     for (let i = 0; i < word1.length; i++) {
-        var arr = []
+        chars = []
         for (let j = 0; j < word2.length; j++) {
-            arr.push(word1[i] === word2[j] && Math.abs(i - j) <= x)
+            chars.push(word2[j] + j)
+        }
+        chars2.push(word1[i] + i)
+    }
+    for (let i = 0; i < chars.length; i++) {
+        var arr = []
+        for (let j = 0; j < chars2.length; j++) {
+            arr.push(chars[i] === chars2[j] && Math.abs(i - j) <= x)
         }
         val.push(arr)
     }
+
     val = removeFalse(val)
     return val
 }
@@ -145,7 +162,7 @@ function findM(matrix) {
     var m = 0;
     for (let row = 0; row < matrix.length; row++)
         for (let column = 0; column < matrix[row].length; column++)
-            if(matrix[row][column])
+            if (matrix[row][column])
                 m++
     return m
 }
